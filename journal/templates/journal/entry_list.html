@@ -1,0 +1,19 @@
+{% extends "journal/base.html" %}
+
+{% block title %}My Entries - My Journal{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>My Journal Entries</h2>
+    <div class="list-group">
+        {% for entry in entries %}
+            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                <h5 class="mb-1">{{ entry.title }}</h5>
+                <small>{{ entry.created_at|date:"F j, Y, g:i a" }}</small>
+                <p class="mb-1">{{ entry.content|truncatechars:100 }}</p>
+            </a>
+        {% empty %}
+            <p>You have no journal entries yet. Start writing to capture your thoughts!</p>
+        {% endfor %}
+    </div>
+{%endblock %}

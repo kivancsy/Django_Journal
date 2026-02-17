@@ -5,4 +5,5 @@ app_name = 'journal'
 
 urlpatterns =[
     path('', views.Home, name='home'),
+    path('entries/', views.EntryList, name='entry_list'),
 ]
