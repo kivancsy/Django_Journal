@@ -1,0 +1,75 @@
+{% extends "journal/base.html" %}
+
+{% block title %}{{ entry.title }} - My Journal{% endblock %}
+
+{% block content %}
+<div class="entry-detail">
+    <!-- Header with actions -->
+    <div class="detail-header">
+        <div>
+            <h1>{{ entry.title }}</h1>
+            <p class="entry-meta">
+                <span>{{ entry.created_at|date:"F j, Y" }}</span>
+                <span class="mx-2">•</span>
+                <span>{{ entry.created_at|date:"g:i a" }}</span>
+                {% if entry.mood %}
+                <span class="mx-2">•</span>
+                <span>{{ entry.get_mood_display }}</span>
+                {% endif %}
+            </p>
+        </div>
+        <div class="detail-actions">
+            <a href="" class="btn btn-outline">
+                Edit
+            </a>
+            <button class="btn btn-delete" onclick="confirmDelete()">
+                Delete
+            </button>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div class="detail-content">
+        {{ entry.content|linebreaks }}
+    </div>
+
+    <!-- Back button -->
+    <div class="detail-footer">
+        <a href="{% url 'journal:entry_list' %}" class="btn btn-outline">
+            ← Back
+        </a>
+    </div>
+</div>
+
+<!-- Delete confirmation modal (hidden by default) -->
+<div id="deleteModal" class="modal-overlay" style="display: none;">
+    <div class="modal-content">
+        <h3>Delete Entry?</h3>
+        <p>Are you sure you want to delete "{{ entry.title }}"? This action cannot be undone.</p>
+        <div class="modal-actions">
+            <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
+            <form method="post" action="" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-delete">Delete</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+function confirmDelete() {
+    document.getElementById('deleteModal').style.display = 'flex';
+}
+
+function closeModal() {
+    document.getElementById('deleteModal').style.display = 'none';
+}
+
+// Close modal on outside click
+document.getElementById('deleteModal')?.addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeModal();
+    }
+});
+</script>
+{% endblock %}

@@ -12,3 +12,10 @@ def EntryList(request):
         'entries': entries
     }
     return render(request, 'journal/entry_list.html', context)
+
+def EntryDetail(request, pk):
+    entry = JournalEntry.objects.get(pk=pk)
+    context = {
+        'entry': entry
+    }
+    return render(request, 'journal/entry_detail.html', context)

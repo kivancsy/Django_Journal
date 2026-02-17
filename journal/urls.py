@@ -6,4 +6,5 @@ app_name = 'journal'
 urlpatterns =[
     path('', views.Home, name='home'),
     path('entries/', views.EntryList, name='entry_list'),
+    path('entry-details/<int:pk>/', views.EntryDetail, name='entry_detail'),
 ]
