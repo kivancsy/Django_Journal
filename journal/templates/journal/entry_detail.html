@@ -9,13 +9,9 @@
         <div>
             <h1>{{ entry.title }}</h1>
             <p class="entry-meta">
-                <span>{{ entry.created_at|date:"F j, Y" }}</span>
+                <span>{{ entry.created_at|date }}</span>
                 <span class="mx-2">•</span>
                 <span>{{ entry.created_at|date:"g:i a" }}</span>
-                {% if entry.mood %}
-                <span class="mx-2">•</span>
-                <span>{{ entry.get_mood_display }}</span>
-                {% endif %}
             </p>
         </div>
         <div class="detail-actions">

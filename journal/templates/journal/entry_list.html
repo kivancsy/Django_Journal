@@ -9,7 +9,7 @@
         {% for entry in entries %}
             <a href="{% url 'journal:entry_detail' entry.pk %}" class="list-group-item list-group-item-action flex-column align-items-start">
                 <h5 class="mb-1">{{ entry.title }}</h5>
-                <small>{{ entry.created_at|date:"F j, Y, g:i a" }}</small>
+                <small>{{ entry.created_at|date}}</small>
                 <p class="mb-1">{{ entry.content|truncatechars:100 }}</p>
             </a>
         {% empty %}

@@ -16,7 +16,7 @@
         <div class="nav-links">
             <a href="/">Home</a>
             <a href="{% url 'journal:entry_list' %}">My Entries</a>
-            <a href="" class="btn-primary">New Entry</a>
+            <a href="{% url 'journal:entry_create' %}" class="btn-primary">New Entry</a>
         </div>
     </div>
 </nav>
