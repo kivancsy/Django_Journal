@@ -9,4 +9,5 @@ urlpatterns =[
     path('entry-details/<int:pk>/', views.EntryDetail, name='entry_detail'),
     path('entry-create/', views.EntryCreate.as_view(), name='entry_create'),
     path('entry-update/<int:pk>/', views.EntryUpdate.as_view(), name='entry_update'),
+    path('entry-delete/<int:pk>/', views.EntryDelete.as_view(), name='entry_delete'),
 ]

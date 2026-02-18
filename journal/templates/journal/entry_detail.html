@@ -44,7 +44,7 @@
         <p>Are you sure you want to delete "{{ entry.title }}"? This action cannot be undone.</p>
         <div class="modal-actions">
             <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
-            <form method="post" action="" style="display: inline;">
+            <form method="post" action="{% url 'journal:entry_delete' entry.pk %}" style="display: inline;">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-delete">Delete</button>
             </form>

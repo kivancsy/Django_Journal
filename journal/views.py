@@ -47,3 +47,10 @@ class EntryUpdate(UpdateView):
     
     def get_success_url(self):
         return reverse('journal:entry_detail', kwargs={'pk': self.object.pk})
+    
+class EntryDelete(DeleteView):
+    model = JournalEntry
+    success_url = reverse_lazy('journal:entry_list')
+    
+    def get(self, request, *args, **kwargs):
+        return self.http_method_not_allowed(request, *args, **kwargs)
