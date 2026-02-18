@@ -10,4 +10,25 @@
         <a href="{% url 'journal:entry_create' %}" class="btn btn-large">Start Writing</a>
     </div>
 </div>
+
+{% if user.is_authenticated and recent_entries %}
+<div class="recent-entries-section">
+    <h2>Recent Entries</h2>
+    
+    <div class="recent-entries-grid">
+        {% for entry in recent_entries %}
+        <a href="{% url 'journal:entry_detail' entry.pk %}" class="recent-entry-card">
+            <h3>{{ entry.title }}</h3>
+            <p class="recent-entry-date">{{ entry.created_at|date:"M d, Y" }}</p>
+            <p class="recent-entry-preview">{{ entry.content|truncatechars:100 }}</p>
+        </a>
+        {% endfor %}
+    </div>
+    
+    <div class="view-all-link">
+        <a href="{% url 'journal:entry_list' %}">View All Entries →</a>
+    </div>
+</div>
+{% endif %}
+
 {% endblock %}
