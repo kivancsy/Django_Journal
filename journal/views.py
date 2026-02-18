@@ -39,3 +39,11 @@ class EntryCreate(CreateView):
     
     def get_success_url(self):
         return reverse('journal:entry_detail', kwargs={'pk': self.object.pk})
+    
+class EntryUpdate(UpdateView):
+    model = JournalEntry
+    form_class = JournalEntryForm
+    template_name = 'journal/entry_update.html'
+    
+    def get_success_url(self):
+        return reverse('journal:entry_detail', kwargs={'pk': self.object.pk})

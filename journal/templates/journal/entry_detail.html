@@ -15,7 +15,7 @@
             </p>
         </div>
         <div class="detail-actions">
-            <a href="" class="btn btn-outline">
+            <a href="{% url 'journal:entry_update' entry.pk %}" class="btn btn-outline">
                 Edit
             </a>
             <button class="btn btn-delete" onclick="confirmDelete()">
