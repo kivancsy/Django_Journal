@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     'journal',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -118,3 +119,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
+
+LOGIN_REDIRECT_URL = 'journal:home'
+LOGOUT_REDIRECT_URL = 'journal:home'
+LOGIN_URL = 'accounts:login'
