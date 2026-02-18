@@ -1,10 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from journal.models import JournalEntry
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
 from .forms import JournalEntryForm
-
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 
 def Home(request):
@@ -14,21 +15,26 @@ def Home(request):
     }
     return render(request, 'journal/home.html', context)
 
+
+@login_required
 def EntryList(request):
-    entries = JournalEntry.objects.all().order_by('-created_at')
+    entries = JournalEntry.objects.filter(user=request.user).order_by('-created_at')  # ← filter(user=request.user) eklendi
     context = {
         'entries': entries
     }
     return render(request, 'journal/entry_list.html', context)
 
+
+@login_required
 def EntryDetail(request, pk):
-    entry = JournalEntry.objects.get(pk=pk)
+    entry = get_object_or_404(JournalEntry, pk=pk, user=request.user)  # ← user=request.user eklendi
     context = {
         'entry': entry
     }
     return render(request, 'journal/entry_detail.html', context)
 
-class EntryCreate(CreateView):
+
+class EntryCreate(LoginRequiredMixin, CreateView):
     model = JournalEntry
     form_class = JournalEntryForm
     template_name = 'journal/entry_create.html'
@@ -39,18 +45,26 @@ class EntryCreate(CreateView):
     
     def get_success_url(self):
         return reverse('journal:entry_detail', kwargs={'pk': self.object.pk})
+
     
-class EntryUpdate(UpdateView):
+class EntryUpdate(LoginRequiredMixin, UpdateView):
     model = JournalEntry
     form_class = JournalEntryForm
     template_name = 'journal/entry_update.html'
     
+    def get_queryset(self):
+        return JournalEntry.objects.filter(user=self.request.user)
+    
     def get_success_url(self):
         return reverse('journal:entry_detail', kwargs={'pk': self.object.pk})
+
     
-class EntryDelete(DeleteView):
+class EntryDelete(LoginRequiredMixin, DeleteView):
     model = JournalEntry
     success_url = reverse_lazy('journal:entry_list')
+    
+    def get_queryset(self):
+        return JournalEntry.objects.filter(user=self.request.user)
     
     def get(self, request, *args, **kwargs):
         return self.http_method_not_allowed(request, *args, **kwargs)
