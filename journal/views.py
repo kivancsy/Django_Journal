@@ -8,7 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 
 
-def Home(request):
+def home(request):
     recent_entries = JournalEntry.objects.filter(user=request.user).order_by('-created_at')[:3] if request.user.is_authenticated else []
     context = {
         'recent_entries': recent_entries
@@ -17,7 +17,7 @@ def Home(request):
 
 
 @login_required
-def EntryList(request):
+def entry_list(request):
     entries = JournalEntry.objects.filter(user=request.user).order_by('-created_at')  # ← filter(user=request.user) eklendi
     context = {
         'entries': entries
