@@ -132,3 +132,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 LOGIN_REDIRECT_URL = 'journal:home'
 LOGOUT_REDIRECT_URL = 'journal:home'
 LOGIN_URL = 'accounts:login'
+
+CSRF_TRUSTED_ORIGINS = ['https://*.railway.app']
