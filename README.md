@@ -1,39 +1,74 @@
-Journal App
+# Journal App
+
 A personal journaling web application built with Django. Users can register, log in, and manage their own journal entries.
-Features
 
-User registration and authentication (Django built-in auth)
-Create, read, update, and delete journal entries
-Each user can only see and manage their own entries
-Django template-based frontend
+🔗 **Live:** https://djangojournal-production.up.railway.app/
 
-Installation
+## Features
 
-Clone the repository
+- User registration and authentication (Django built-in auth)
+- Create, read, update, and delete journal entries
+- Each user can only see and manage their own entries
+- Django template-based frontend
+- PostgreSQL database
+- Dockerized
 
-bash   git clone https://github.com/kullanicin/journal-app.git
-   cd journal-app
+## Running Locally
 
-Create a virtual environment
+### With Docker (recommended)
 
-bash   python -m venv venv
+1. Clone the repository
+   ```bash
+   git clone https://github.com/kivancsy/Django_Journal.git
+   cd Django_Journal
+   ```
+
+2. Set up environment variables
+   ```bash
+   cp .env.example .env
+   ```
+   Then edit `.env` and fill in your values.
+
+3. Start with Docker Compose
+   ```bash
+   docker-compose up --build
+   ```
+
+4. Visit `http://127.0.0.1:8000` in your browser.
+
+### Without Docker
+
+1. Clone the repository
+   ```bash
+   git clone https://github.com/kivancsy/Django_Journal.git
+   cd Django_Journal
+   ```
+
+2. Create a virtual environment
+   ```bash
+   python -m venv venv
    source venv/bin/activate
+   ```
 
-Install dependencies
+3. Install dependencies
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-bash   pip install -r requirements.txt
+4. Set up environment variables
+   ```bash
+   cp .env.example .env
+   ```
+   Then edit `.env` and fill in your values.
 
-Set up environment variables
+5. Run migrations
+   ```bash
+   python manage.py migrate
+   ```
 
-bash   cp .env.example .env
-Then edit .env and add your own SECRET_KEY.
+6. Start the server
+   ```bash
+   python manage.py runserver
+   ```
 
-Run migrations
-
-bash   python manage.py migrate
-
-Start the server
-
-bash   python manage.py runserver
-
-Visit http://127.0.0.1:8000 in your browser.
+7. Visit `http://127.0.0.1:8000` in your browser.
